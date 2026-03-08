@@ -1,0 +1,155 @@
+marry_local_noble = {
+
+	sound = UI_action_character_marry_noble
+
+	is_consort_action = yes
+	on_own_nation = yes
+
+	message = yes
+
+	ai_tick = daily
+	ai_tick_frequency = 365
+
+	potential = {
+		scope:actor = {
+			OR = {
+				government_type = government_type:monarchy
+				government_type = government_type:republic
+				government_type = government_type:tribe
+				government_type = government_type:steppe_horde
+				# Non-Catholic theocracies (Orthodox/Miaphysite still gated by character_can_marry_trigger)
+				AND = {
+					government_type = government_type:theocracy
+					NOT = { religion = religion:catholic }
+				}
+				# Catholic theocracies where priests may marry (but not the Pope under partial allowance)
+				AND = {
+					government_type = government_type:theocracy
+					religion = religion:catholic
+					OR = {
+						AND = {
+							international_organization:catholic_church = {
+								international_organization_has_policy = policy:priest_marriage_partially_allowed
+							}
+							NOT = { tag = PAP }
+						}
+						international_organization:catholic_church = {
+							international_organization_has_policy = policy:priest_marriage_allowed
+						}
+					}
+				}
+			}
+		}
+	}
+
+	allow = {
+		scope:actor = {
+			gold >= {
+				value = 25
+			}
+		}
+	}
+
+	select_trigger = {
+		looking_for_a = character
+		source = actor
+		target_flag = recipient
+		name = "choose_character"
+		column = {
+			data = name
+		}
+		visible = {
+			is_alive = yes
+		}
+		enabled = {
+			character_can_marry_trigger = yes
+			NOT = { has_trait = eunuch }
+		}
+	}
+
+	ai_will_do = {
+
+		add = {
+			if = {
+				limit = {
+					scope:recipient ?= {
+						is_married = yes
+					}
+				}
+				value = -1000
+			}
+		}
+
+		# Old rulers must get married
+		add = {
+			if = {
+				limit = {
+					scope:recipient = {
+						is_ruler = yes
+					}
+					scope:actor = {
+						gold >= {
+							value = 100
+						}
+					}
+				}
+				value = scope:recipient.age_in_years
+				subtract = 30
+				multiply = 10
+			}
+		}
+		# Add randomness so they don't all marry on their birthday (or at game start)
+		add = {
+			value = scope:recipient.random_integer
+			modulo = 1000
+			multiply = -10
+		}
+	}
+
+	effect = {
+		scope:actor = {
+			custom_tooltip = "LOCAL_NOBLE_SOUGHT"
+			hidden_effect = {
+				if = {
+					limit = {
+						scope:recipient = {
+							is_female = no
+						}
+					}
+					create_character = {
+						religion = scope:recipient.religion
+						culture = scope:recipient.culture
+						age = { 16 21 }
+						female = yes
+						estate = estate_type:nobles_estate
+						adm = { 30 75 }
+						dip = { 30 75 }
+						mil = { 30 75 }
+						marry_character = scope:recipient
+					}
+				}
+				if = {
+					limit = {
+						scope:recipient = {
+							is_female = yes
+						}
+					}
+					create_character = {
+						religion = scope:recipient.religion
+						culture = scope:recipient.culture
+						age = { 16 21 }
+						female = no
+						estate = estate_type:nobles_estate
+						adm = { 25 68 }
+						dip = { 25 68 }
+						mil = { 25 68 }
+						marry_character = scope:recipient
+					}
+				}
+			}
+			add_gold = {
+				value = -25
+			}
+		}
+	}
+}

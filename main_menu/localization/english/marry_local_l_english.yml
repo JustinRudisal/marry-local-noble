@@ -1,0 +1,11 @@
+l_english:
+
+ marry_local_noble: "Marry a Local Noble"
+ marry_local_noble_concept: "[marriage|E]"
+ marry_local_noble_act: "$marry_local_noble$"
+ marry_local_noble_desc_specific: "[SCOPE.sCharacter('recipient').GetName] will marry a local noble, as our court is barren of suitors."
+ marry_local_noble_desc: "The [character|e] will marry a local noble."
+ marry_local_noble_past: "[SCOPE.sCharacter('recipient').GetName] marries [SCOPE.sCharacter('recipient').GetHerselfHimself] to a local noble!"
+ marry_local_noble_act_past: "[SCOPE.sCharacter('recipient').GetName] married a local noble."
+
+ LOCAL_NOBLE_SOUGHT: "[SCOPE.sCharacter('recipient').GetName] will marry a local noble."
