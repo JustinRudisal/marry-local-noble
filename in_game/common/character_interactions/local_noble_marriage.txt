@@ -151,7 +151,7 @@ marry_local_noble = {
 					}
 				}
 				else = {
-					# Recipient already married — refund the 25 ducats
+					# Recipient already married - refund the 25 ducats
 					custom_tooltip = "LOCAL_NOBLE_ALREADY_MARRIED"
 					add_gold = {
 						value = 25
