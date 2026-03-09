@@ -110,9 +110,12 @@ marry_local_noble = {
 		scope:actor = {
 			custom_tooltip = "LOCAL_NOBLE_SOUGHT"
 			hidden_effect = {
+				# Guard: if recipient was already married (e.g. by Auto Noble Marriage in the same tick),
+				# skip creation and refund the gold instead of leaving an orphaned noble in court.
 				if = {
 					limit = {
 						scope:recipient = {
+							has_available_marriage_slot = yes
 							is_female = no
 						}
 					}
@@ -128,9 +131,10 @@ marry_local_noble = {
 						marry_character = scope:recipient
 					}
 				}
-				if = {
+				else_if = {
 					limit = {
 						scope:recipient = {
+							has_available_marriage_slot = yes
 							is_female = yes
 						}
 					}
@@ -144,6 +148,13 @@ marry_local_noble = {
 						dip = { 25 68 }
 						mil = { 25 68 }
 						marry_character = scope:recipient
+					}
+				}
+				else = {
+					# Recipient already married — refund the 25 ducats
+					custom_tooltip = "LOCAL_NOBLE_ALREADY_MARRIED"
+					add_gold = {
+						value = 25
 					}
 				}
 			}

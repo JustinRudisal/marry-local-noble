@@ -9,3 +9,4 @@
  marry_local_noble_act_past: "[SCOPE.sCharacter('recipient').GetName] married a local noble."
 
  LOCAL_NOBLE_SOUGHT: "[SCOPE.sCharacter('recipient').GetName] will marry a local noble."
+ LOCAL_NOBLE_ALREADY_MARRIED: "[SCOPE.sCharacter('recipient').GetName] was already married — the ducats have been returned."
