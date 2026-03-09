@@ -6,7 +6,7 @@ This is an updated and fixed version of [Kaiser's original mod](https://steamcom
 
 ## Steam Workshop
 
-*(link to be added after publishing)*
+[Marry a Local Noble - Continued (1.1 Fix)](https://steamcommunity.com/sharedfiles/filedetails/?id=3681583449)
 
 ## Features
 
