@@ -17,12 +17,10 @@ marry_local_noble = {
 				government_type = government_type:republic
 				government_type = government_type:tribe
 				government_type = government_type:steppe_horde
-				# Non-Catholic theocracies (Orthodox/Miaphysite still gated by character_can_marry_trigger)
 				AND = {
 					government_type = government_type:theocracy
 					NOT = { religion = religion:catholic }
 				}
-				# Catholic theocracies where priests may marry (but not the Pope under partial allowance)
 				AND = {
 					government_type = government_type:theocracy
 					religion = religion:catholic
@@ -80,7 +78,6 @@ marry_local_noble = {
 			}
 		}
 
-		# Old rulers must get married
 		add = {
 			if = {
 				limit = {
@@ -98,7 +95,6 @@ marry_local_noble = {
 				multiply = 10
 			}
 		}
-		# Add randomness so they don't all marry on their birthday (or at game start)
 		add = {
 			value = scope:recipient.random_integer
 			modulo = 1000
@@ -110,8 +106,6 @@ marry_local_noble = {
 		scope:actor = {
 			custom_tooltip = "LOCAL_NOBLE_SOUGHT"
 			hidden_effect = {
-				# Guard: if recipient was already married (e.g. by Auto Noble Marriage in the same tick),
-				# skip creation and refund the gold instead of leaving an orphaned noble in court.
 				if = {
 					limit = {
 						scope:recipient = {
@@ -151,7 +145,6 @@ marry_local_noble = {
 					}
 				}
 				else = {
-					# Recipient already married - refund the 25 ducats
 					custom_tooltip = "LOCAL_NOBLE_ALREADY_MARRIED"
 					add_gold = {
 						value = 25
@@ -160,6 +153,255 @@ marry_local_noble = {
 			}
 			add_gold = {
 				value = -25
+			}
+		}
+	}
+}
+
+marry_local_noble_average = {
+
+	sound = UI_action_character_marry_noble
+
+	is_consort_action = yes
+	on_own_nation = yes
+
+	message = yes
+
+	ai_tick = daily
+	ai_tick_frequency = 730
+
+	potential = {
+		scope:actor = {
+			is_ai = no
+			OR = {
+				government_type = government_type:monarchy
+				government_type = government_type:republic
+				government_type = government_type:tribe
+				government_type = government_type:steppe_horde
+				AND = {
+					government_type = government_type:theocracy
+					NOT = { religion = religion:catholic }
+				}
+				AND = {
+					government_type = government_type:theocracy
+					religion = religion:catholic
+					OR = {
+						AND = {
+							international_organization:catholic_church = {
+								international_organization_has_policy = policy:priest_marriage_partially_allowed
+							}
+							NOT = { tag = PAP }
+						}
+						international_organization:catholic_church = {
+							international_organization_has_policy = policy:priest_marriage_allowed
+						}
+					}
+				}
+			}
+		}
+	}
+
+	allow = {
+		scope:actor = {
+			gold >= {
+				value = 10
+			}
+		}
+	}
+
+	select_trigger = {
+		looking_for_a = character
+		source = actor
+		target_flag = recipient
+		name = "choose_character"
+		column = {
+			data = name
+		}
+		visible = {
+			is_alive = yes
+		}
+		enabled = {
+			character_can_marry_trigger = yes
+			NOT = { has_trait = eunuch }
+		}
+	}
+
+	ai_will_do = {
+		add = {
+			value = -1000
+		}
+	}
+
+	effect = {
+		scope:actor = {
+			custom_tooltip = "LOCAL_NOBLE_SOUGHT_AVERAGE"
+			hidden_effect = {
+				if = {
+					limit = {
+						scope:recipient = {
+							has_available_marriage_slot = yes
+							is_female = no
+						}
+					}
+					create_character = {
+						religion = scope:recipient.religion
+						culture = scope:recipient.culture
+						age = { 16 25 }
+						female = yes
+						estate = estate_type:nobles_estate
+						adm = { 20 50 }
+						dip = { 20 50 }
+						mil = { 20 50 }
+						marry_character = scope:recipient
+					}
+				}
+				else_if = {
+					limit = {
+						scope:recipient = {
+							has_available_marriage_slot = yes
+							is_female = yes
+						}
+					}
+					create_character = {
+						religion = scope:recipient.religion
+						culture = scope:recipient.culture
+						age = { 16 25 }
+						female = no
+						estate = estate_type:nobles_estate
+						adm = { 18 45 }
+						dip = { 18 45 }
+						mil = { 18 45 }
+						marry_character = scope:recipient
+					}
+				}
+				else = {
+					custom_tooltip = "LOCAL_NOBLE_ALREADY_MARRIED"
+					add_gold = {
+						value = 10
+					}
+				}
+			}
+			add_gold = {
+				value = -10
+			}
+		}
+	}
+}
+
+marry_local_commoner = {
+
+	sound = UI_action_character_marry_noble
+
+	is_consort_action = yes
+	on_own_nation = yes
+
+	message = yes
+
+	ai_tick = daily
+	ai_tick_frequency = 730
+
+	potential = {
+		scope:actor = {
+			is_ai = no
+			OR = {
+				government_type = government_type:monarchy
+				government_type = government_type:republic
+				government_type = government_type:tribe
+				government_type = government_type:steppe_horde
+				AND = {
+					government_type = government_type:theocracy
+					NOT = { religion = religion:catholic }
+				}
+				AND = {
+					government_type = government_type:theocracy
+					religion = religion:catholic
+					OR = {
+						AND = {
+							international_organization:catholic_church = {
+								international_organization_has_policy = policy:priest_marriage_partially_allowed
+							}
+							NOT = { tag = PAP }
+						}
+						international_organization:catholic_church = {
+							international_organization_has_policy = policy:priest_marriage_allowed
+						}
+					}
+				}
+			}
+		}
+	}
+
+	allow = {
+	}
+
+	select_trigger = {
+		looking_for_a = character
+		source = actor
+		target_flag = recipient
+		name = "choose_character"
+		column = {
+			data = name
+		}
+		visible = {
+			is_alive = yes
+		}
+		enabled = {
+			character_can_marry_trigger = yes
+			NOT = { has_trait = eunuch }
+		}
+	}
+
+	ai_will_do = {
+		add = {
+			value = -1000
+		}
+	}
+
+	effect = {
+		scope:actor = {
+			custom_tooltip = "LOCAL_COMMONER_SOUGHT"
+			hidden_effect = {
+				if = {
+					limit = {
+						scope:recipient = {
+							has_available_marriage_slot = yes
+							is_female = no
+						}
+					}
+					create_character = {
+						religion = scope:recipient.religion
+						culture = scope:recipient.culture
+						age = { 16 28 }
+						female = yes
+						estate = estate_type:nobles_estate
+						adm = { 10 30 }
+						dip = { 10 30 }
+						mil = { 10 30 }
+						marry_character = scope:recipient
+					}
+				}
+				else_if = {
+					limit = {
+						scope:recipient = {
+							has_available_marriage_slot = yes
+							is_female = yes
+						}
+					}
+					create_character = {
+						religion = scope:recipient.religion
+						culture = scope:recipient.culture
+						age = { 16 28 }
+						female = no
+						estate = estate_type:nobles_estate
+						adm = { 10 30 }
+						dip = { 10 30 }
+						mil = { 10 30 }
+						marry_character = scope:recipient
+					}
+				}
+				else = {
+					custom_tooltip = "LOCAL_NOBLE_ALREADY_MARRIED"
+				}
 			}
 		}
 	}

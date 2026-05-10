@@ -1,12 +1,30 @@
-﻿l_english:
+l_english:
 
- marry_local_noble: "Marry a Local Noble"
+ marry_local_noble: "Marry a Prominent Noble (25 ducats)"
  marry_local_noble_concept: "[marriage|E]"
  marry_local_noble_act: "$marry_local_noble$"
- marry_local_noble_desc_specific: "[SCOPE.sCharacter('recipient').GetName] will marry a local noble, as our court is barren of suitors."
- marry_local_noble_desc: "The [character|e] will marry a local noble."
- marry_local_noble_past: "[SCOPE.sCharacter('recipient').GetName] marries [SCOPE.sCharacter('recipient').GetHerselfHimself] to a local noble!"
- marry_local_noble_act_past: "[SCOPE.sCharacter('recipient').GetName] married a local noble."
+ marry_local_noble_desc_specific: "[SCOPE.sCharacter('recipient').GetName] will marry a prominent local noble of good standing."
+ marry_local_noble_desc: "The [character|e] will marry a prominent local noble for 25 ducats."
+ marry_local_noble_past: "[SCOPE.sCharacter('recipient').GetName] marries [SCOPE.sCharacter('recipient').GetHerselfHimself] to a prominent noble!"
+ marry_local_noble_act_past: "[SCOPE.sCharacter('recipient').GetName] married a prominent noble."
 
- LOCAL_NOBLE_SOUGHT: "[SCOPE.sCharacter('recipient').GetName] will marry a local noble."
+ marry_local_noble_average: "Marry a Local Noble (10 ducats)"
+ marry_local_noble_average_concept: "[marriage|E]"
+ marry_local_noble_average_act: "$marry_local_noble_average$"
+ marry_local_noble_average_desc_specific: "[SCOPE.sCharacter('recipient').GetName] will marry a local noble of modest standing."
+ marry_local_noble_average_desc: "The [character|e] will marry a local noble for 10 ducats."
+ marry_local_noble_average_past: "[SCOPE.sCharacter('recipient').GetName] marries [SCOPE.sCharacter('recipient').GetHerselfHimself] to a local noble!"
+ marry_local_noble_average_act_past: "[SCOPE.sCharacter('recipient').GetName] married a local noble."
+
+ marry_local_commoner: "Marry a Minor Noble (free)"
+ marry_local_commoner_concept: "[marriage|E]"
+ marry_local_commoner_act: "$marry_local_commoner$"
+ marry_local_commoner_desc_specific: "[SCOPE.sCharacter('recipient').GetName] will marry a minor noble of little distinction."
+ marry_local_commoner_desc: "The [character|e] will marry a minor noble at no cost."
+ marry_local_commoner_past: "[SCOPE.sCharacter('recipient').GetName] marries [SCOPE.sCharacter('recipient').GetHerselfHimself] to a minor noble!"
+ marry_local_commoner_act_past: "[SCOPE.sCharacter('recipient').GetName] married a minor noble."
+
+ LOCAL_NOBLE_SOUGHT: "[SCOPE.sCharacter('recipient').GetName] will marry a prominent local noble."
+ LOCAL_NOBLE_SOUGHT_AVERAGE: "[SCOPE.sCharacter('recipient').GetName] will marry a local noble."
+ LOCAL_COMMONER_SOUGHT: "[SCOPE.sCharacter('recipient').GetName] will marry a minor noble."
  LOCAL_NOBLE_ALREADY_MARRIED: "[SCOPE.sCharacter('recipient').GetName] was already married. The ducats have been returned."

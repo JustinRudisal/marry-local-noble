@@ -1,10 +1,12 @@
 {
-	"name": "Marry a Local Noble - Continued (1.1 Fix)",
+	"name": "Marry a Local Noble - Continued (1.2)",
 	"id": "eu5.marrylocal.fix",
-	"version": "1.1",
-	"supported_game_version": "1.1.*",
-	"short_description": "Marry dynasty characters to a random local noble for 25 ducats. Fixed for 1.1.x.",
+	"version": "1.2",
+	"supported_game_version": "1.2.*",
+	"short_description": "Marry dynasty characters to a local noble or commoner. Three tiers: 25 ducats (good stats), 10 ducats (average), or free (commoner).",
 	"tags": ["Characters", "Gameplay"],
 	"relationships": [],
-	"game_custom_data": {}
+	"game_custom_data": {
+		"multiplayer_synchronized": true
+	}
 }
